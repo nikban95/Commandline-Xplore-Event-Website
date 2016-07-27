@@ -18,6 +18,9 @@ Pre Steps:
 Run Server:
 
 1. Open project directory in the terminal.
-2. Run the command: "python manage.py runserver"
+2. Run the below written commands:
+  1. python manage.py makemigrations
+  2. python manage.py migrate
+  3. python manage.py runserver
 3. Now the Server starts running.
 4. The website will be live at 127.0.0.1:8000/home/1/

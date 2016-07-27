@@ -9,21 +9,24 @@ from django.template import Template, Context
 from home.models import Question_ans_key,UserProfile,Submission
 import os
 import datetime,time
+import getpass
+
 def home_page(request,offset):
-       hk="offline"
-       if "username" in request.session:
+        serverUser=getpass.getuser()
+        hk="offline"
+        if "username" in request.session:
             hk="online"
             username=request.session["username"]
             user=UserProfile.objects.get(username=username)
 
             offset=int(offset)
-            fques=open("/home/nike/Desktop/ques","r")
+            fques=open("/home/"+serverUser+"/Desktop/ques","r")
             ques1=fques.readlines()[offset-1]
             fques.close()
             ques1="Q"+str(offset)+": "+ques1
 
             flag=0
-            file_name="/home/nike/Desktop/submit/"+username
+            file_name="/home/"+serverUser+"/Desktop/submit/"+username
             file_name="_".join(file_name.split(" "))
             fans=open(file_name,"r")
             prevans=fans.readlines()[offset-1]
@@ -80,13 +83,14 @@ def home_page(request,offset):
             context=RequestContext(request,maindata)
             return render_to_response('home/home_page.html',context)
 
-       else:
-	  	context=RequestContext(request)
-      		return render_to_response('home/home_page.html',context)
+        else:
+	  	    context=RequestContext(request)
+        return render_to_response('home/home_page.html',context)
 
 def register(request):
     # Like before, get the request's context.
     context = RequestContext(request)
+    serverUser=getpass.getuser()
     registered = False
     profile_form = UserProfileForm()
     if request.method == 'POST':
@@ -98,7 +102,7 @@ def register(request):
             registered = True
             username=request.POST["username"]
             request.session["username"]=username
-            file_name="/home/nike/Desktop/submit/"+username
+            file_name="/home/"+serverUser+"/Desktop/submit/"+username
             file_name="_".join(file_name.split(" "))
             fans=open(file_name,"w")
             for i in range(20):

@@ -11,12 +11,13 @@
 - python 2.7
 
 #### Setup:
-- Create a file named "ques" on the Desktop. It will be containing all the questions. Each question must be written in 1 line i.e. line 1 contains first question.
-- Create a folder named "submit" on the Desktop. The information of registered users and the answers submitted by them will be recorded in the form of files in this folder.
+- Create a file named "ques" in the "data" folder. It will be containing all the questions. Each question must be written in 1 line i.e. line 1 contains first question.
+- Create a folder named "submit" in the "data" folder. The information of registered users and the answers submitted by them will be recorded in the form of files in this folder.
 
 - Open project directory in the terminal.
 - Run the below written commands:
   ````
+  pip install -r requirements.txt 
   python manage.py makemigrations
   python manage.py migrate
   python manage.py runserver

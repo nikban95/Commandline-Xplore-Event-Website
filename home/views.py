@@ -12,7 +12,6 @@ import datetime,time
 import getpass
 
 def home_page(request,offset):
-        serverUser=getpass.getuser()
         hk="offline"
         if "username" in request.session:
             hk="online"
@@ -20,13 +19,14 @@ def home_page(request,offset):
             user=UserProfile.objects.get(username=username)
 
             offset=int(offset)
-            fques=open("/home/"+serverUser+"/Desktop/ques","r")
+            directory = SITE_ROOT = os.path.dirname(os.path.realpath(__name__)) + "/data"
+            fques=open(directory + "/ques","r")
             ques1=fques.readlines()[offset-1]
             fques.close()
             ques1="Q"+str(offset)+": "+ques1
 
             flag=0
-            file_name="/home/"+serverUser+"/Desktop/submit/"+username
+            file_name=directory+"/submit/"+username
             file_name="_".join(file_name.split(" "))
             fans=open(file_name,"r")
             prevans=fans.readlines()[offset-1]
@@ -102,7 +102,8 @@ def register(request):
             registered = True
             username=request.POST["username"]
             request.session["username"]=username
-            file_name="/home/"+serverUser+"/Desktop/submit/"+username
+            directory = os.path.dirname(os.path.realpath(__name__)) + "/data"
+            file_name=directory+"/submit/"+username
             file_name="_".join(file_name.split(" "))
             fans=open(file_name,"w")
             for i in range(20):
